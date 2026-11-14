@@ -1,0 +1,36 @@
+# General
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.project
+.classpath
+.settings/
+.factorypath
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# Backend
+target/
+*.class
+*.log
+
+# Frontend
+node_modules/
+dist/
+coverage/
+out-tsc/
+npm-debug.log*
+.angular/
+.sass-cache/
