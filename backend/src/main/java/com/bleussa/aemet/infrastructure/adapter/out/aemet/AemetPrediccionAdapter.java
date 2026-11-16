@@ -1,6 +1,7 @@
 package com.bleussa.aemet.infrastructure.adapter.out.aemet;
 
 import com.bleussa.aemet.application.port.out.PrediccionProvider;
+import com.bleussa.aemet.domain.exception.MunicipioNoEncontradoException;
 import com.bleussa.aemet.domain.model.PrediccionDiaria;
 import com.bleussa.aemet.domain.model.PrediccionMunicipio;
 import com.bleussa.aemet.domain.model.ProbabilidadPrecipitacion;
@@ -24,7 +25,8 @@ public class AemetPrediccionAdapter implements PrediccionProvider {
         List<AemetPrediccion> respuesta = aemetClient.obtenerDatos(
                 new TypeReference<List<AemetPrediccion>>() {},
                 "/prediccion/especifica/municipio/diaria/{codigo}",
-                codigoMunicipio);
+                codigoMunicipio)
+                .orElseThrow(() -> new MunicipioNoEncontradoException(codigoMunicipio));
 
         List<PrediccionDiaria> dias = respuesta.stream()
                 .findFirst()

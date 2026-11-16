@@ -1,5 +1,7 @@
 package com.bleussa.aemet.infrastructure.adapter.out.aemet;
 
+import com.bleussa.aemet.domain.exception.MunicipioNoEncontradoException;
+import com.bleussa.aemet.domain.exception.ServicioMeteorologicoNoDisponibleException;
 import com.bleussa.aemet.domain.model.PrediccionDiaria;
 import com.bleussa.aemet.domain.model.PrediccionMunicipio;
 import com.bleussa.aemet.domain.model.ProbabilidadPrecipitacion;
@@ -14,7 +16,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 class AemetPrediccionAdapterTest {
@@ -53,5 +57,25 @@ class AemetPrediccionAdapterTest {
                 new PrediccionDiaria(LocalDate.of(2026, 11, 18), 15, 8, List.of(
                         new ProbabilidadPrecipitacion(40, null))))));
         servidor.verify();
+    }
+
+    @Test
+    void lanzaMunicipioNoEncontradoSiAemetResponde404EnElSobre() {
+        servidor.expect(requestTo("https://aemet.test/api/prediccion/especifica/municipio/diaria/99999"))
+                .andRespond(withSuccess("""
+                        {"descripcion":"Error al obtener los datos","estado":404}
+                        """, MediaType.APPLICATION_JSON));
+
+        assertThatThrownBy(() -> adapter.obtenerPorMunicipio("99999"))
+                .isInstanceOf(MunicipioNoEncontradoException.class);
+    }
+
+    @Test
+    void lanzaServicioNoDisponibleSiAemetFalla() {
+        servidor.expect(requestTo("https://aemet.test/api/prediccion/especifica/municipio/diaria/44013"))
+                .andRespond(withServerError());
+
+        assertThatThrownBy(() -> adapter.obtenerPorMunicipio("44013"))
+                .isInstanceOf(ServicioMeteorologicoNoDisponibleException.class);
     }
 }
