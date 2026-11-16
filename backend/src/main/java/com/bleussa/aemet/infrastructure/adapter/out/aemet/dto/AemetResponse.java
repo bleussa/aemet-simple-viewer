@@ -1,4 +1,4 @@
-package com.bleussa.aemet.infraestructure.adapter.out.aemet.dto;
+package com.bleussa.aemet.infrastructure.adapter.out.aemet.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,4 +1,4 @@
-package com.bleussa.aemet.infraestructure.adapter.out.aemet;
+package com.bleussa.aemet.infrastructure.adapter.out.aemet;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,8 +1,7 @@
-package com.bleussa.aemet.infraestructure.adapter.in.rest;
+package com.bleussa.aemet.infrastructure.adapter.in.rest;
 
 import com.bleussa.aemet.application.port.in.BuscarMunicipiosUseCase;
-import com.bleussa.aemet.application.service.BuscarMunicipiosService;
-import com.bleussa.aemet.infraestructure.adapter.in.rest.dto.MunicipioResponse;
+import com.bleussa.aemet.infrastructure.adapter.in.rest.dto.MunicipioResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

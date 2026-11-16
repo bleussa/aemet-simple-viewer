@@ -1,4 +1,4 @@
-package com.bleussa.aemet.infraestructure.adapter.in.rest.dto;
+package com.bleussa.aemet.infrastructure.adapter.in.rest.dto;
 
 import com.bleussa.aemet.domain.model.Municipio;
 
