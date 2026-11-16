@@ -6,6 +6,7 @@ import com.bleussa.aemet.domain.model.PrediccionDiaria;
 import com.bleussa.aemet.domain.model.PrediccionMunicipio;
 import com.bleussa.aemet.domain.model.ProbabilidadPrecipitacion;
 import com.bleussa.aemet.infrastructure.adapter.out.aemet.dto.AemetPrediccion;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tools.jackson.core.type.TypeReference;
 
@@ -21,6 +22,7 @@ public class AemetPrediccionAdapter implements PrediccionProvider {
     }
 
     @Override
+    @Cacheable(AemetCacheConfig.PREDICCION)
     public PrediccionMunicipio obtenerPorMunicipio(String codigoMunicipio) {
         List<AemetPrediccion> respuesta = aemetClient.obtenerDatos(
                 new TypeReference<List<AemetPrediccion>>() {},

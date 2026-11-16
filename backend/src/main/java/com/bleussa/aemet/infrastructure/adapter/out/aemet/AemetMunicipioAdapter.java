@@ -4,6 +4,7 @@ import com.bleussa.aemet.application.port.out.MunicipioProvider;
 import com.bleussa.aemet.domain.exception.ServicioMeteorologicoNoDisponibleException;
 import com.bleussa.aemet.domain.model.Municipio;
 import com.bleussa.aemet.infrastructure.adapter.out.aemet.dto.AemetMunicipio;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tools.jackson.core.type.TypeReference;
 
@@ -19,6 +20,7 @@ public class AemetMunicipioAdapter implements MunicipioProvider {
     }
 
     @Override
+    @Cacheable(AemetCacheConfig.MUNICIPIOS)
     public List<Municipio> obtenerTodos() {
         return aemetClient.obtenerDatos(new TypeReference<List<AemetMunicipio>>() {}, "/maestro/municipios")
                 .orElseThrow(() -> new ServicioMeteorologicoNoDisponibleException("AEMET no devolvió municipios"))
