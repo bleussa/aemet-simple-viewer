@@ -1,0 +1,100 @@
+:host
+  display: inline-block
+  line-height: 0
+
+svg
+  overflow: visible
+
+line, polyline, path
+  stroke-linecap: round
+  stroke-linejoin: round
+
+.astro
+  fill: #ffc533
+
+.rayos
+  stroke: #ffb300
+  stroke-width: 3
+  transform-origin: 32px 32px
+  animation: girar 12s linear infinite
+
+.calor
+  .astro
+    fill: #ff8f00
+  .rayos
+    stroke: #f4511e
+    transform-origin: 32px 28px
+
+.ondas
+  fill: none
+  stroke: #f4511e
+  stroke-width: 2.5
+  animation: subir 2s ease-in-out infinite
+
+.copo-grande
+  fill: none
+  stroke: #4fc3f7
+  stroke-width: 3
+  transform-origin: 32px 32px
+  animation: girar 20s linear infinite
+
+.nube
+  fill: #b0bec5
+  animation: desplazar 6s ease-in-out infinite alternate
+
+.nube-fondo
+  fill: #cfd8dc
+  animation-duration: 8s
+  animation-direction: alternate-reverse
+
+.lluvia .nube, .nieve .nube
+  fill: #90a4ae
+
+.gotas
+  stroke: #1e88e5
+  stroke-width: 3
+
+.gotas line, .copos circle
+  animation: caer 1.2s linear infinite
+
+.copos circle
+  fill: #90caf9
+  animation-duration: 2.4s
+
+.gotas line:nth-child(2), .copos circle:nth-child(2)
+  animation-delay: -0.4s
+
+.gotas line:nth-child(3), .copos circle:nth-child(3)
+  animation-delay: -0.8s
+
+@keyframes girar
+  to
+    transform: rotate(360deg)
+
+@keyframes desplazar
+  from
+    transform: translateX(-3px)
+  to
+    transform: translateX(3px)
+
+@keyframes caer
+  from
+    transform: translateY(-4px)
+    opacity: 0
+  30%
+    opacity: 1
+  to
+    transform: translateY(10px)
+    opacity: 0
+
+@keyframes subir
+  0%, 100%
+    transform: translateY(0)
+    opacity: 0.4
+  50%
+    transform: translateY(-3px)
+    opacity: 1
+
+@media (prefers-reduced-motion: reduce)
+  *
+    animation: none !important

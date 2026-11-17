@@ -1,0 +1,63 @@
+<svg
+  viewBox="0 0 64 64"
+  role="img"
+  [attr.width]="tamano()"
+  [attr.height]="tamano()"
+  [attr.aria-label]="descripcion()"
+  [class]="tipo()"
+>
+  <title>{{ descripcion() }}</title>
+  @switch (tipo()) {
+    @case ('sol') {
+      <g class="rayos">
+        @for (angulo of [0, 45, 90, 135, 180, 225, 270, 315]; track angulo) {
+          <line x1="32" y1="6" x2="32" y2="13" [attr.transform]="'rotate(' + angulo + ' 32 32)'" />
+        }
+      </g>
+      <circle class="astro" cx="32" cy="32" r="13" />
+    }
+    @case ('calor') {
+      <g class="rayos">
+        @for (angulo of [0, 45, 90, 135, 180, 225, 270, 315]; track angulo) {
+          <line x1="32" y1="4" x2="32" y2="10" [attr.transform]="'rotate(' + angulo + ' 32 28)'" />
+        }
+      </g>
+      <circle class="astro" cx="32" cy="28" r="12" />
+      <g class="ondas">
+        <path d="M14 52 q4 -4 8 0 t8 0 t8 0 t8 0 t8 0" />
+        <path d="M14 59 q4 -4 8 0 t8 0 t8 0 t8 0 t8 0" />
+      </g>
+    }
+    @case ('frio') {
+      <g class="copo-grande">
+        @for (angulo of [0, 60, 120]; track angulo) {
+          <g [attr.transform]="'rotate(' + angulo + ' 32 32)'">
+            <line x1="32" y1="8" x2="32" y2="56" />
+            <polyline points="26,13 32,19 38,13" />
+            <polyline points="26,51 32,45 38,51" />
+          </g>
+        }
+      </g>
+    }
+    @case ('nubes') {
+      <path class="nube nube-fondo" d="M40 30h14a7 7 0 0 0 0-14 10 10 0 0 0-19-2 7 7 0 0 0 5 16z" />
+      <path class="nube" d="M17 50h29a10 10 0 0 0 1-20 14 14 0 0 0-27-3 11.5 11.5 0 0 0-3 23z" />
+    }
+    @case ('lluvia') {
+      <path class="nube" d="M17 38h29a10 10 0 0 0 1-20 14 14 0 0 0-27-3 11.5 11.5 0 0 0-3 23z" />
+      <g class="gotas">
+        <line x1="22" y1="44" x2="20" y2="50" />
+        <line x1="32" y1="44" x2="30" y2="50" />
+        <line x1="42" y1="44" x2="40" y2="50" />
+      </g>
+    }
+    @case ('nieve') {
+      <path class="nube" d="M17 38h29a10 10 0 0 0 1-20 14 14 0 0 0-27-3 11.5 11.5 0 0 0-3 23z" />
+      <g class="copos">
+        <circle cx="22" cy="46" r="2.5" />
+        <circle cx="32" cy="46" r="2.5" />
+        <circle cx="42" cy="46" r="2.5" />
+      </g>
+    }
+  }
+</svg>

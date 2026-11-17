@@ -3,14 +3,16 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { MatCardModule } from '@angular/material/card';
 
 import { consejoAbrigo } from '../../../../core/clima/consejo-abrigo';
+import { tipoClima, tipoClimaFranja } from '../../../../core/clima/tipo-clima';
 import { Municipio } from '../../../../core/models/municipio';
 import { Prediccion } from '../../../../core/models/prediccion';
+import { IconoClima } from '../icono-clima/icono-clima';
 
 const SIMBOLOS = { G_CEL: '°C', G_FAH: '°F' } as const;
 
 @Component({
   selector: 'app-prediccion-resultado',
-  imports: [DecimalPipe, MatCardModule],
+  imports: [DecimalPipe, MatCardModule, IconoClima],
   templateUrl: './prediccion-resultado.html',
   styleUrl: './prediccion-resultado.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,5 +24,7 @@ export class PrediccionResultado {
   protected readonly consejo = computed(() =>
     consejoAbrigo(this.prediccion(), this.municipio().codigo),
   );
+  protected readonly tipoClima = computed(() => tipoClima(this.prediccion()));
+  protected readonly tipoClimaFranja = tipoClimaFranja;
   protected readonly simbolo = computed(() => SIMBOLOS[this.prediccion().unidadTemperatura]);
 }
