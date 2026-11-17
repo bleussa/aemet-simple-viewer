@@ -1,0 +1,13 @@
+<main>
+  <h1>¿Qué tiempo hará mañana?</h1>
+
+  <section class="filtros">
+    <app-buscador-municipio
+      class="buscador"
+      [municipios]="municipios()"
+      (busquedaCambiada)="busqueda.set($event)"
+      (municipioSeleccionado)="municipio.set($event)"
+    />
+    <app-selector-unidad class="unidad" [(unidad)]="unidad" />
+  </section>
+</main>

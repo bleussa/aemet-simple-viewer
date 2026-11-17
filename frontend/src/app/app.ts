@@ -1,13 +1,12 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { PrediccionPage } from './features/prediccion/prediccion-page/prediccion-page';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [PrediccionPage],
+  template: '<app-prediccion-page />',
   styleUrl: './app.sass',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  protected readonly title = signal('aemet');
-}
+export class App {}

@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline">
+  <mat-label>Municipio</mat-label>
+  <input
+    #campo
+    matInput
+    placeholder="Escribe al menos 2 letras"
+    [matAutocomplete]="autocompletado"
+    (input)="busquedaCambiada.emit(campo.value)"
+  />
+  <mat-autocomplete
+    #autocompletado="matAutocomplete"
+    [displayWith]="mostrarNombre"
+    (optionSelected)="municipioSeleccionado.emit($event.option.value)"
+  >
+    @for (municipio of municipios(); track municipio.codigo) {
+      <mat-option [value]="municipio">{{ municipio.nombre }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
