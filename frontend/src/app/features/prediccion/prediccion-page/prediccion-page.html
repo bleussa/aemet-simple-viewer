@@ -10,4 +10,16 @@
     />
     <app-selector-unidad class="unidad" [(unidad)]="unidad" />
   </section>
+
+  @if (prediccion.isLoading()) {
+    <mat-progress-bar mode="indeterminate" aria-label="Cargando previsión" />
+  }
+
+  @if (mensajeError(); as mensaje) {
+    <p class="error" role="alert">{{ mensaje }}</p>
+  } @else if (resultado(); as resultado) {
+    <app-prediccion-resultado [nombreMunicipio]="municipio()?.nombre ?? ''" [prediccion]="resultado" />
+  } @else if (!municipio()) {
+    <p class="ayuda">Busca un municipio para ver su previsión.</p>
+  }
 </main>
