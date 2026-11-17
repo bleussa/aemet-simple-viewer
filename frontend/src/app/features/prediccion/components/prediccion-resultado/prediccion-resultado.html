@@ -1,6 +1,6 @@
 <mat-card appearance="outlined">
   <mat-card-header>
-    <mat-card-title>{{ nombreMunicipio() }}</mat-card-title>
+    <mat-card-title>{{ municipio().nombre }}</mat-card-title>
     <mat-card-subtitle>Previsión para mañana</mat-card-subtitle>
   </mat-card-header>
 
@@ -9,6 +9,8 @@
       {{ prediccion().mediaTemperatura | number: '1.1-1' }} {{ simbolo() }}
       <span class="etiqueta">temperatura media</span>
     </p>
+
+    <p class="consejo">{{ consejo() }}</p>
 
     <table class="precipitacion">
       <caption>Probabilidad de precipitación</caption>

@@ -18,7 +18,9 @@
   @if (mensajeError(); as mensaje) {
     <p class="error" role="alert">{{ mensaje }}</p>
   } @else if (resultado(); as resultado) {
-    <app-prediccion-resultado [nombreMunicipio]="municipio()?.nombre ?? ''" [prediccion]="resultado" />
+    @if (municipio(); as municipio) {
+      <app-prediccion-resultado [municipio]="municipio" [prediccion]="resultado" />
+    }
   } @else if (!municipio()) {
     <p class="ayuda">Busca un municipio para ver su previsión.</p>
   }
