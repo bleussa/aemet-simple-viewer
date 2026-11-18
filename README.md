@@ -5,6 +5,43 @@
 - *Backend*: Java 25 + Spring Boot 4.1
 - *Frontend*: Angular 22 + SASS
 
+## Ejecución
+
+Las imagenes se publican en GHCR cada vez que se hace push a `main`, asi que no hace falta clonar ni compilar nada para probarlo, solo tener Docker.
+
+Creamos una carpeta 'aemet' y metemos nuestra API KEY en el archivo `.env`:
+
+```bash
+echo "AEMET_API_KEY=tu_api_key" > .env
+```
+
+Despues descargamos las imagenes y levantamos los dos contenedores en la misma red. El backend tiene que llamarse `backend` porque el nginx del frontend redirige `/api` a `http://backend:8080`.
+
+```bash
+docker pull ghcr.io/bleussa/aemet-backend:latest
+docker pull ghcr.io/bleussa/aemet-frontend:latest
+
+docker network create aemet
+
+docker run -d --name backend --network aemet --env-file .env -p 8080:8080 ghcr.io/bleussa/aemet-backend:latest
+docker run -d --name frontend --network aemet -p 4200:80 ghcr.io/bleussa/aemet-frontend:latest
+```
+
+Con eso la aplicación queda en el localhost:4200. Tambien se puede probar la API directamente:
+
+```bash
+curl "http://localhost:8080/api/municipios?nombre=madrid"
+curl "http://localhost:8080/api/prediccion/28079"
+curl "http://localhost:8080/api/prediccion/28079?unidad=G_FAH"
+```
+
+Para pararlo y limpiar todo ejecutamos:
+
+```bash
+docker rm -f frontend backend
+docker network rm aemet
+```
+
 ## Preguntas
 
 ### 1. ¿Cómo haríamos para mejorar el tiempo de respuesta de este servicio?
